@@ -106,7 +106,6 @@ void BookDialog::push_borrow(){
     else{
         guest->Applyforbook(book);
         QMessageBox::information(this, "congratualtions", "申请成功", QMessageBox::Ok);
-        guest->increaseBbook();
     }
     this->close();
 }
