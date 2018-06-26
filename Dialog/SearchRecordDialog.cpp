@@ -1,5 +1,5 @@
 #include "SearchRecordDialog.h"
-
+#include <QMessageBox>
 SearchRecordDialog::SearchRecordDialog(User* user_,  QWidget *parent):
     user(user_), QDialog(parent){
     layout = new QGridLayout(this);
@@ -46,5 +46,6 @@ void SearchRecordDialog::push_browse(){
     layout->addWidget(listwidget, 4,1 );
     connect(this, SIGNAL(signalBrowse(QString,QString)), listwidget, SLOT(slotBrowse(QString,QString)));
     int k = setcolumn->checkedId();
-    emit signalBrowse(c[k], setvalue->text());
+    if(k == -1 && setvalue()->text()!="") if(k == -1) QMessageBox::information(this, "warning", "请选择查询类型", QMessageBox::Ok);
+    else emit signalBrowse(c[k], setvalue->text());
 }
