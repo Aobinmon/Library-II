@@ -1,5 +1,5 @@
 #include "SearchGuestDialog.h"
-
+#include <QMessageBox>
 SearchGuestDialog::SearchGuestDialog(Administrator* ad_, QWidget *parent):
     QDialog(parent), ad(ad_){
     setUI();
@@ -42,7 +42,10 @@ void SearchGuestDialog::push_browse(){
     std::string type_;
     std::string value_ = setvalue->text().toStdString();
     int k = setcolumn->checkedId();
-    if(k == 0) type_ = "ID";
-    else if (k == 1) type_ = "Username";
-    emit signalBrowse(type_, value_);
+    if(k == -1) if(k == -1) QMessageBox::information(this, "warning", "请选择查询类型", QMessageBox::Ok);
+    else{
+        if(k == 0) type_ = "ID";
+        else if (k == 1) type_ = "Username";
+        emit signalBrowse(type_, value_);
+    }
 }
