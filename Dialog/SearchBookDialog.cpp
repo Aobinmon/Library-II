@@ -2,6 +2,7 @@
 #include "core/Guest.h"
 #include "core/Administrator.h"
 #include <string>
+#include <QMessageBox>
 SearchBookDialog::SearchBookDialog(User* user_, QWidget *parent):
     QDialog(parent), user(user_){
     layout = new QGridLayout;
@@ -58,5 +59,6 @@ void SearchBookDialog::push_browse(){
     layout->addWidget(listwidget, 3,1);
     connect(this, SIGNAL(signalBrowse(std::string,std::string)), listwidget, SLOT(getbook(std::string,std::string)));
     int k = setcolumn->checkedId();
-    emit signalBrowse(column[k].toStdString(), browser->text().toStdString());
+    if(k == -1 && browser->text()!="") QMessageBox::information(this, "warning", "请选择查询类型", QMessageBox::Ok);
+    else emit signalBrowse(column[k].toStdString(), browser->text().toStdString());
 }
