@@ -31,7 +31,6 @@ int Administrator::approve_or_refuse(Record *record, int approve) {
         }
         bm->modifyInfo(book, "Onshelf", "0");              //0为不在架
         guest->increaseBbook();                                          //已经increase了
-        guest->decreaseobook();
         gm->modifyInfo(guest, "bookID"+QString::number(guest->getbBook()), QString::number(book->getID()));
         guest->getbook(book);
         bm->modifyInfo(book, "GuestID1", QString::number(guest->getID()));
